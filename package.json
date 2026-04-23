@@ -1,0 +1,13 @@
+{
+  "name": "506-week3-starter",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CS 506 Week 3 starter — a small lightbox feature for students to read, recognize patterns in, and integrate into their own landing page.",
+  "scripts": {
+    "serve": "serve . -l 8080",
+    "start": "serve . -l 8080"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
