@@ -17,28 +17,20 @@
     </header>
 
     <main>
-        <section class="gallery">
-            <div class="photo">
-                <img src="new_images/music.jpg">
-                <p>Music Composition</p>
-            </div>
-            <div class="photo">
-                <img src="new_images/sports.jpg">
-                <p>Sports and Performance</p>
-            </div>
-            <div class="photo">
-                <img src="new_images/coding.jpg">
-                <p>Technology</p>
-            </div>
-            <div class="photo">
-                <img src="new_images/reading.jpg">
-                <p>Reading and Learning</p>
-            </div>
-        </section>
+        <!-- Thumbnails are built from state.images in js/lightbox.js -->
+        <section class="gallery"></section>
     </main>
 
     <footer>
         <p>Deployed to AWS S3 — Cloud Web App Engineering, 2026</p>
     </footer>
+
+    <!-- Lightbox overlay — hidden until a thumbnail is clicked -->
+    <div class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <img class="lightbox__img" src="" alt="">
+        <div class="lightbox__caption"></div>
+    </div>
+
+    <script src="js/lightbox.js"></script>
 </body>
 </html>
