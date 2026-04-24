@@ -19,7 +19,7 @@
   object-fit: cover;
   cursor: pointer;
   border-radius: 6px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
