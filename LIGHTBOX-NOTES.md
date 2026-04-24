@@ -46,9 +46,13 @@ What CSS conflicts did you have to resolve, and how?
         1. Both files define .gallery. Mine uses a 2-column grid (style.css lines 59-63); the starter uses an auto-fill grid with different gap and extra padding/margin (css/lightbox.css lines 7-14).
         2. Both try to style the thumbnails. The starter's .gallery__thumb (css/lightbox.css lines 16-24) sizes the image to a 1:1 square and draws a 1px #ddd border that looks bad on my #121212 dark theme. Its layout rules also compete with my .photo img (style.css lines 78-83).
 
-    My resolution strategy ended up being CSS load order plus one targeted edit, not refusing to link the starter's file at all. In index.html I link css/lightbox.css first and style.css second (lines 7-8):
-        <link rel="stylesheet" href="css/lightbox.css">
-        <link rel="stylesheet" href="style.css">
-    Where both files define the same selector with the same specificity, my style.css wins because it loads later. That keeps the 2-column .gallery layout, the .photo img sizing, and my darker .lightbox overlay values — backdrop rgba(0, 0, 0, 0.9) instead of the starter's 0.85, caption color #e8e8e8 instead of pure white.
+    My resolution strategy ended up being CSS load order plus one targeted edit, not refusing to link the starter's file at all. 
+    
+    The lightbox effect didn't actually work when I uploaded my files to AWS. After working with Caleb we were able to make the following adjustments that I've summarized with the help of the AI: 
+    
+        In index.html I link css/lightbox.css first and style.css second (lines 7-8):
+            <link rel="stylesheet" href="css/lightbox.css">
+            <link rel="stylesheet" href="style.css">
+        Where both files define the same selector with the same specificity, my style.css wins because it loads later. That keeps the 2-column .gallery layout, the .photo img sizing, and my darker .lightbox overlay values — backdrop rgba(0, 0, 0, 0.9) instead of the starter's 0.85, caption color #e8e8e8 instead of pure white.
 
-    The .gallery__thumb border wasn't something load order could fix, because my style.css doesn't define a competing border on .gallery__thumb, so nothing overrides the starter's rule. I commented that one line out directly in css/lightbox.css rather than adding an override in style.css, since it was purely cosmetic for this theme. The starter's .gallery__thumb hover transition (transform: scale(1.03) + box-shadow) does now apply alongside my .photo:hover lift, which actually improves the click feedback on the cards.
+        The .gallery__thumb border wasn't something load order could fix, because my style.css doesn't define a competing border on .gallery__thumb, so nothing overrides the starter's rule. I commented that one line out directly in css/lightbox.css rather than adding an override in style.css, since it was purely cosmetic for this theme. The starter's .gallery__thumb hover transition (transform: scale(1.03) + box-shadow) does now apply alongside my .photo:hover lift, which actually improves the click feedback on the cards.
