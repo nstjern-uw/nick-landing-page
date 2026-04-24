@@ -42,13 +42,13 @@ How did you reconcile class names — did you change yours to match the starter'
 
 What CSS conflicts did you have to resolve, and how?
 
-    The resolution strategy was "inherit nothing from the starter's CSS, import only what's genuinely new (the overlay), and treat .gallery__thumb as a JS hook with a single cosmetic rule (cursor: pointer).
+    Two real conflicts existed between my style.css and the starter's css/lightbox.css:
+        1. Both files define .gallery. Mine uses a 2-column grid (style.css lines 59-63); the starter uses an auto-fill grid with different gap and extra padding/margin (css/lightbox.css lines 7-14).
+        2. Both try to style the thumbnails. The starter's .gallery__thumb (css/lightbox.css lines 16-24) sizes the image to a 1:1 square and draws a 1px #ddd border that looks bad on my #121212 dark theme. Its layout rules also compete with my .photo img (style.css lines 78-83).
 
-    Two conflicts were that the gallery layouts were different and that the .gallery__thumb would restyle my images. I resolved them by: 
-        Chose not to link css/lightbox.css in index.html. There is no <link rel="stylesheet" href="css/lightbox.css"> in your HTML. The file still lives in the repo for assignment submission, but it simply isn't loaded on the page, so none of its selectors ever match — both conflicts evaporate at the source.
+    My resolution strategy ended up being CSS load order plus one targeted edit, not refusing to link the starter's file at all. In index.html I link css/lightbox.css first and style.css second (lines 7-8):
+        <link rel="stylesheet" href="css/lightbox.css">
+        <link rel="stylesheet" href="style.css">
+    Where both files define the same selector with the same specificity, my style.css wins because it loads later. That keeps the 2-column .gallery layout, the .photo img sizing, and my darker .lightbox overlay values — backdrop rgba(0, 0, 0, 0.9) instead of the starter's 0.85, caption color #e8e8e8 instead of pure white.
 
-        Cherry-picked only the overlay-specific rules into your existing style.css (lines 102–144): .gallery__thumb { cursor: pointer; }, .lightbox, .lightbox.open, .lightbox__img, .lightbox__caption. These selectors don't exist anywhere else in your CSS, so nothing else collides.
-
-        Tuned values to match the dark theme while copying: backdrop rgba(0, 0, 0, 0.9) instead of the starter's 0.85 (deeper black, complements #121212), caption color #e8e8e8 (your existing text color) instead of the starter's pure white, caption font-size in px to match the rest of your type scale.
-
-        Left .photo img sizing untouched, so thumbnails render with the exact dimensions and hover behavior the original landing page had — the lightbox integration is visually invisible until a click happens.
+    The .gallery__thumb border wasn't something load order could fix, because my style.css doesn't define a competing border on .gallery__thumb, so nothing overrides the starter's rule. I commented that one line out directly in css/lightbox.css rather than adding an override in style.css, since it was purely cosmetic for this theme. The starter's .gallery__thumb hover transition (transform: scale(1.03) + box-shadow) does now apply alongside my .photo:hover lift, which actually improves the click feedback on the cards.
